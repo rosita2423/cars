@@ -16,7 +16,7 @@ namespace cars
         License[] licenseSet;
         Car[] carSet;
         public bool supiciousOfFraud { get; set; }
-
+        int xd;
 
     }
 }
