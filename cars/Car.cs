@@ -9,11 +9,26 @@ namespace cars
     internal class Car
     {
         //Attributes of cars
-        public int year { get; set; }
+        public DateOnly year { get; set; }
         public string brand { get; set; }
         public string description { get; set; }
         public string wheels { get; set; }
         public string color { get; set; }
 
+        public Car createCar(DateOnly date, string brandParameter,string wheelsParameter, string color, string descriptionParameter)
+        {
+            Car carTuned = new Car();
+            carTuned.year = date;
+            carTuned.brand = brandParameter;
+            carTuned.wheels = wheelsParameter;
+            carTuned.color = color;
+            carTuned.description = descriptionParameter;
+
+            return carTuned;
+        }
+        public void cancelCar()
+        {
+
+        }
     }
 }
