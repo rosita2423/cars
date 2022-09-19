@@ -94,19 +94,19 @@ internal class Program
         License C10 = license.createLicense("B", new DateOnly(2022, 08, 30), new DateOnly(2023, 12, 25));
 
         //Entering data
-        function.giveCar(user2, chevy);
-        function.giveCar(user6, to10);
-        function.giveCar(user6, MOTOMOTO);
-        function.giveCar(user6, to10);
-        function.giveCar(user6, tesla);
-        function.giveCar(user1, suruTuneado);
+        user2.giveCar(chevy);
+        user6.giveCar(to10);
+        user6.giveCar(MOTOMOTO);
+        user6.giveCar(to10);
+        user6.giveCar(tesla);
+        user1.giveCar(suruTuneado);
 
-        function.giveLicense(user1, C10);
-        function.giveLicense(user4, A09);
-        function.giveLicense(user3, A14);
-        function.giveLicense(user2, A09);
-        function.giveLicense(user2, A14);
-        function.giveLicense(user6, C10);
+        user1.giveLicense(C10);
+        user4.giveLicense(A09);
+        user3.giveLicense(A14);
+        user2.giveLicense(A09);
+        user2.giveLicense(A14);
+        user6.giveLicense(C10);
 
 
         //Properties
@@ -136,8 +136,8 @@ internal class Program
         user6.printLicenses();
         user6.printCars();
 
-        function.cancelCar(user6, MOTOMOTO);
-        function.cancelCar(user1, suruTuneado);
+        user6.cancelCar(MOTOMOTO);
+        user1.cancelCar(suruTuneado);
         user1.printCars();
 
     }

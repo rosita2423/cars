@@ -57,11 +57,11 @@ namespace cars
             return counterCar;
         }
 
-        public bool validLicense(Person human)
+        public bool validLicense()
         {
             for (int i = 0; i < licenseSet.Count; i++)
             {
-                if(today < human.licenseSet[i].expirationDate)
+                if(today < licenseSet[i].expirationDate)
                 {
                     return true;
                 }
@@ -70,14 +70,14 @@ namespace cars
             return false;
         }
 
-        public bool licenseGet(Person human, string type)
+        public bool licenseGet(string type)
         {
             for (int i = 0; i < licenseSet.Count; i++)
             {
-                if (human.licenseSet[i].type == type)
+                if (licenseSet[i].type == type)
                 {
 
-                    if (true == human.validLicense(human))
+                    if (true == validLicense())
                     {
                         return true;
                     }
@@ -102,6 +102,7 @@ namespace cars
         //Printer functions
         public void printUserData(Person people)
         {
+            Console.WriteLine("\n"+"User especifications:"+"\n");
             Console.WriteLine("Key Code: " + people.keyCode + "\n" +
                 "Name: " + people.name + "\n"+
                 "SurName: "+people.surname + "\n"+
@@ -110,7 +111,12 @@ namespace cars
         }
         public void printLicenses()
         {
+            Console.WriteLine("The follow LICENSES are of " + name + "\n");
             counter = 0;
+            if (licenseSet.Count == 0)
+            {
+                Console.Write("Empty, there aren't any license"+"\n"+"\n");
+            }
             foreach (License license in licenseSet)
             {
                 counter++;
@@ -120,12 +126,151 @@ namespace cars
 
         public void printCars()
         {
+            Console.WriteLine("The follow CARS are of "+name+"\n");
             counter = 0;
+            if (carSet.Count == 0)
+            {
+                Console.Write("Empty, there aren't any car"+"\n"+"\n");
+            }
             foreach (Car car in carSet)
             {
                 counter++;
                 Console.WriteLine("Car Number " + counter + "\n" +"Brand: " + car.brand + "\n" + "Year :" + car.year + "\n" + "Wheels: " + car.wheels + "\n" +"Color: " + car.color +"\n"+"Car type: " + car.type + "\n" + "A brief description: " + car.description + "\n");
             }
+        }
+
+
+
+        //Functions
+        //instance of date (today)
+        License date = new License();
+
+        //give people licenses and vehicles
+        public void giveLicense(License license)
+        {
+            if (age >= 90) //age checker
+            {
+                Console.WriteLine("\n" + "--------- Sorry, we cannot provide an license to an old man :( -----------" + "\n");
+            }
+            else
+            {
+                if (firstLicense == true)
+                {
+                    receiveLicense(license);
+                    license.keyCode = keyCode; //set the last parameter to license
+                    firstLicense = false;
+                    lastLicense = license.expirationDate;
+                }
+                else
+                {
+                    if (lastLicense > date.today) //compare to know if the licenses are able to change (parameter)
+                    {
+                        Console.WriteLine("\n" + "----------- You cannot activate a new license having one vigent :( ------------" + "\n");
+                    }
+                    else
+                    {
+                        receiveLicense(license);
+                        lastLicense = license.expirationDate;
+                    }
+                }
+
+            }
+        }
+
+        public void giveCar(Car car)
+        {
+            if (gender == "Girl")
+            {
+                if (car.color == "Red")
+                {
+                    receiveCar(car);
+                }
+                else
+                {
+                    Console.WriteLine("\n" + "--------- Girls don't like cars that aren't red :( ----------" + "\n");
+                }
+            }
+            else
+            {
+                if (car.brand == "Ford" || car.brand == "Toyota")
+                {
+                    receiveCar(car);
+                }
+                else
+                {
+                    Console.WriteLine("\n" + "--------- PREFERENCE: The boys don't like others cars that aren't ford or toyota :( ------------" + "\n");
+                }
+            }
+            if (carCounter() >= 5)
+            {
+                supiciousOfFraud = true;
+            }
+        }
+        public void cancelCar(Car car)
+        {
+            if (car.type == "A")
+            {
+                //check the DATE VALIDATION and the SAME TYPE of the license comparing with the car
+                if (licenseGet("A") == true)
+                {
+                    if (quitCar(car) == true)
+                    {
+                        Console.WriteLine("Car " + car.brand + " quitted to " + name + " succesfully!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("\n" + "------- Function error: Car " + car.brand + " didn't found on " + name + " to quit :( -----------" + "\n");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("\n" + "-------- Function error: You cannot cancel " + car.brand + " without a valid license :( ------" + "\n");
+                }
+            }
+            else if (car.type == "B")
+            {
+                if (licenseGet("B") == true)
+                {
+                    if (quitCar(car) == true)
+                    {
+                        Console.WriteLine("\n" + "Car " + car.brand + " quitted to " + name + " succesfully!" + "\n");
+                    }
+                    else
+                    {
+                        Console.WriteLine("\n" + "------ Function error: Car" + car.brand + "didn't found on " + name + " to quit :( -------" + "\n");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("\n" + "-------- Function error: You cannot cancel car " + car.brand + " without a valid license :( ----------" + "\n");
+                }
+            }
+
+            else if (car.type == "C")
+            {
+                if (licenseGet("C") == true)
+                {
+                    if (quitCar(car) == true)
+                    {
+                        Console.WriteLine("\n" + "Car " + car.brand + " quitted to " + name + " succesfully!" + "\n");
+                    }
+                    else
+                    {
+                        Console.WriteLine("\n" + "------ Function error: Car" + car.brand + "didn't found on " + name + " to quit :( -------" + "\n");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("\n" + "-------- Function error: You cannot cancel car " + car.brand + " without a valid license :( ----------" + "\n");
+                }
+            }
+            else
+            {
+                Console.WriteLine("\n" + "---------- There is a problem, you don't have that car-----------" + "\n");
+            }
+
+
+
         }
 
     }
